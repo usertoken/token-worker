@@ -1,0 +1,10 @@
+**/node_modules
+server/primus.js
+data.*
+data-*
+node_modules
+npm*log
+yarn*log
+tests
+wip*
+.env

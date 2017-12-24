@@ -1,0 +1,64 @@
+{
+  "name": "token-worker",
+  "version": "0.0.1",
+  "description": "Data-mining Cloud Worker for UserToken.com",
+  "keywords": [
+    "memory02",
+    "primus",
+    "redhat",
+    "token-memory"
+  ],
+  "license": "MIT",
+  "author": "Alex Davis <alex@alex2006hw.com>",
+  "main": "server/server.js",
+  "repository": {},
+  "scripts": {
+    "build": "npm run format;npm run build:server;npm run link:data",
+    "postbuild": "cp ./node_modules/gun/gun.* public/js/",
+    "build:server": "./node_modules/babel-cli/bin/babel.js src -d ./",
+    "clean": "npm run clean:root;npm run clean:tmp ",
+    "clean:cache": "mv ~/.cache/token-worker ~/.cache/token-worker-deleted;rm -rf ~/.cache/token-worker-deleted;npm run clean:tmp &",
+    "clean:root": "rm -rf node_modules configs server tests wip01;mkdir -p ~/.cache/token-worker/root/node_modules;ln -s ~/.cache/token-worker/root/node_modules ",
+    "clean:tmp": " rm -rf /tmp/fbfn* /tmp/firebase_functions* /tmp/npm* &",
+    "format": "npm run format:src;npm run format:package",
+    "format:package": "./node_modules/sort-package-json/index.js &",
+    "format:src": "./node_modules/prettier/bin/prettier.js --write \"src/**/*{.js, .json}\" &",
+    "link:data": "mkdir -p data",
+    "start": "npm run start:server:data",
+    "start:server:data": "node server/server-levelhyper.js",
+    "start:server:gateway:1": "node server/cluster.js",
+    "stop": "./node_modules/pm2/bin/pm2 stop \"token-worker\" ",
+    "poststop": "./node_modules/pm2/bin/pm2 delete \"token-worker\" ",
+    "test": "cd tests;node client.js",
+    "wait:sleep": "while(true);do sleep 1000;done",
+    "wip:start:server:gateway:2": "./node_modules/pm2/bin/pm2 start server/server.js --name=\"token-worker\" -i max;npm run wait:sleep"
+  },
+  "dependencies": {
+    "babel-runtime": "6.26.0",
+    "body-parser": "1.18.2",
+    "cluster": "0.7.7",
+    "dotenv": "4.0.0",
+    "express": "4.16.2",
+    "express-http-proxy": "^1.1.0",
+    "gun": "0.9.1",
+    "jwt-simple": "0.5.1",
+    "level-hyper": "1.2.2",
+    "leveldown": "2.1.1",
+    "levelup": "2.0.1",
+    "object-assign": "4.1.1",
+    "pm2": "^2.9.1",
+    "primus": "7.1.0",
+    "serve-favicon": "2.4.5",
+    "ws": "3.3.3"
+  },
+  "devDependencies": {
+    "babel-cli": "6.26.0",
+    "babel-preset-env": "1.6.1",
+    "npm-run-all": "4.1.2",
+    "prettier": "1.9.2",
+    "sort-package-json": "1.7.1"
+  },
+  "engines": {
+    "node": "6.x"
+  }
+}

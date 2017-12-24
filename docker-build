@@ -1,0 +1,1 @@
+docker build -t usertoken/token-worker:1.0.0 .

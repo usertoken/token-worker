@@ -6,12 +6,12 @@ export COMMENT="Automated release TAG $DATE"
 git clone \
   https://usertoken@github.com/dev-usertoken/memory02.dev.usertoken.com.git \
 deploy
-rm -rf deploy/.git
-cp -r deploy/.git* deploy/
-cp -r deploy/data deploy/
+rm -rf build/.git
+cp -r deploy/.git* build/
+cp -r deploy/data build/
 {
   echo $TAG at $DATE with $COMMENT
-  cd deploy
+  cd build
   git add -A .
   git commit -m $DATE
   git tag -a $TAG -m "$COMMENT"

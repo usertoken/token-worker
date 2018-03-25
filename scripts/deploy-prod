@@ -1,7 +1,0 @@
-export DATE=$(date +%Y%m.%d.%s)
-export TAG=$DATE
-export COMMENT="Automated release TAG $DATE"
-[ ! -z $1 ] && export COMMENT="$COMMENT : $1"
-\rm -rf deploy
-cp manifest.yml build/
-cd build;cf push
